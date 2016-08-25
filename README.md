@@ -5,7 +5,7 @@ An Icinga plugin in Perl to check the health of a Galera cluster
 
 Inspired by [Guillaume Coré's Bash
 plugin](https://github.com/fridim/nagios-plugin-check_galera_cluster)
-but many times faster due to Icinga's embedded Perl interprete .
+but many times faster due to Icinga's embedded Perl interpreter.
 
 Options:
 
