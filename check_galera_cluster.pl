@@ -34,12 +34,10 @@ my $prim = $opts->primary;
 my $dbh = DBI->connect("DBI:mysql:host=$host;port=$port", $opts->user, $opts->pass, { RaiseError => 1 })
     or $mp->plugin_exit( CRITICAL, "Could not connect to host: " . $DBI::errstr);
 
-my %status = map {
-    $_->[0] => $_->[1]
-} grep {
-    $_->[0] =~ /^wsrep_/
-} @{$dbh->selectall_arrayref('SHOW STATUS')};
-
+my %status =
+map { @$_ }
+grep { $_->[0] =~ /^wsrep_/ }
+@{$dbh->selectall_arrayref('SHOW STATUS')};
 
 if($status{wsrep_cluster_size} <= $crit) {
     $mp->add_message(CRITICAL, "number of cluster nodes: $status{wsrep_cluster_size} <= $crit");
